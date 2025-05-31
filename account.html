@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JBR & Co. - Account</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Firebase SDK -->
+   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+</head>
+<body class="bg-gray-100" style="background-image: linear-gradient(to right, #e5e7eb 1px, transparent 1px), linear-gradient(to bottom, #e5e7eb 1px, transparent 1px); background-size: 40px 40px;">
+  <nav class="bg-gray-800 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="index.html" class="text-xl font-bold">JBR & Co.</a>
+      <div class="space-x-4">
+        <a href="index.html" class="hover:text-gray-300">Home</a>
+        <a href="cart.html" class="hover:text-gray-300">Cart</a>
+        <a href="account.html" class="hover:text-gray-300">Account</a>
+        <span id="auth-link" class="hover:text-gray-300 cursor-pointer">Login</span>
+      </div>
+    </div>
+  </nav>
+  <div class="container mx-auto p-4 max-w-md">
+    <h1 class="text-2xl font-bold text-center mb-6">Your Account</h1>
+    <div id="account-info" class="bg-white shadow-md rounded-lg p-6">
+      <p class="mb-4">You are not logged in.</p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      updateAuthLink();
+      renderAccount();
+    });
+  </script>
+</body>
+<!-- <footer class="footer">
+  <div class="container mx-auto text-center py-4">
+    <p class="text-gray-600">© 2025 JBR & Co. All rights reserved.</p>
+  </div>
+</footer> -->
+</html>

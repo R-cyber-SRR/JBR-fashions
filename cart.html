@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JBR & Co. - Cart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Firebase SDK --><script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+</head>
+<body class="bg-gray-100" style="background-image: linear-gradient(to right, #e5e7eb 1px, transparent 1px), linear-gradient(to bottom, #e5e7eb 1px, transparent 1px); background-size: 40px 40px;">
+  <!-- Navbar Start -->
+  <nav class="bg-gray-800 text-white p-4 shadow">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="index.html" class="text-xl font-bold">JBR & Co.</a>
+      <div class="space-x-4">
+        <a href="index.html" class="hover:text-gray-300">Home</a>
+        <a href="cart.html" class="hover:text-gray-300">Cart</a>
+        <a href="account.html" class="hover:text-gray-300">Account</a>
+        <span id="auth-link" class="hover:text-gray-300 cursor-pointer">Login</span>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar End -->
+
+  <div class="container mx-auto p-4 min-h-[60vh]">
+    <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Your Cart</h1>
+    <div id="cart" class="bg-white p-6 rounded-xl shadow-xl max-w-2xl mx-auto">
+      <div id="cart-items"></div>
+      <p id="cart-total" class="mt-6 font-semibold text-lg text-right">Total: ₹0.00</p>
+      <a href="checkOut.html">
+        <button class="mt-8 w-full bg-blue-600 text-white py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition">
+          Proceed to Checkout
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer Start -->
+  <footer class="bg-gray-800 mt-16">
+    <div class="container mx-auto text-center py-6">
+      <p class="text-gray-300">© 2025 JBR & Co. All rights reserved.</p>
+      <div class="mt-3 flex justify-center items-center space-x-4">
+        <a href="contactUs.html" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Contact Us</a>
+        <a href="https://facebook.com/jbrco" target="_blank" aria-label="Facebook" class="text-gray-300 hover:text-blue-500">
+          <svg class="inline w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 4.991 3.657 9.128 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.632.771-1.632 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 16.991 22 12"></path></svg>
+        </a>
+        <a href="https://twitter.com/jbrco" target="_blank" aria-label="Twitter" class="text-gray-300 hover:text-blue-400">
+          <svg class="inline w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 5.924c-.793.352-1.645.59-2.538.698a4.48 4.48 0 0 0 1.963-2.475 8.94 8.94 0 0 1-2.828 1.082 4.48 4.48 0 0 0-7.635 4.086A12.72 12.72 0 0 1 3.112 4.89a4.48 4.48 0 0 0 1.388 5.976 4.47 4.47 0 0 1-2.03-.561v.057a4.48 4.48 0 0 0 3.593 4.393 4.48 4.48 0 0 1-2.025.077 4.48 4.48 0 0 0 4.184 3.116A8.98 8.98 0 0 1 2 19.54a12.67 12.67 0 0 0 6.88 2.017c8.26 0 12.78-6.84 12.78-12.78 0-.195-.004-.39-.013-.583A9.14 9.14 0 0 0 24 4.59a8.93 8.93 0 0 1-2.54.697z"></path></svg>
+        </a>
+        <a href="https://instagram.com/jbrco" target="_blank" aria-label="Instagram" class="text-gray-300 hover:text-pink-500">
+          <svg class="inline w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.975.975 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.975.975-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.975-.975-1.246-2.242-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608C4.516 2.497 5.783 2.226 7.15 2.163 8.416 2.105 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.77.131 4.675.385 3.678 1.382 2.681 2.379 2.427 3.474 2.368 4.756.013 8.332 0 8.741 0 12c0 3.259.013 3.668.072 4.948.059 1.282.313 2.377 1.31 3.374.997.997 2.092 1.251 3.374 1.31C8.332 23.987 8.741 24 12 24c3.259 0 3.668-.013 4.948-.072 1.282-.059 2.377-.313 3.374-1.31.997-.997 1.251-2.092 1.31-3.374.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.059-1.282-.313-2.377-1.31-3.374-.997-.997-2.092-1.251-3.374-1.31C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"></path></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer End -->
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      updateAuthLink();
+      renderCart();
+    });
+  </script>
+</body>
+</html>
